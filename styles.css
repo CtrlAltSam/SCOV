@@ -1,0 +1,292 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Space+Grotesk:wght@400;600&display=swap");
+
+:root {
+  font-family: "Space Grotesk", "Segoe UI", sans-serif;
+  color: #e8edf2;
+  background-color: #0f1113;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  --grid-fine: rgba(255, 255, 255, 0.06);
+  --grid-bold: rgba(255, 255, 255, 0.1);
+  --panel: rgba(15, 20, 24, 0.86);
+  --panel-border: rgba(140, 160, 175, 0.2);
+  --accent: #79c6ff;
+  --accent-strong: #59aefb;
+  --import: #ffd86b;
+  --node: #182028;
+  --node-border: rgba(140, 160, 175, 0.32);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-image:
+    linear-gradient(0deg, var(--grid-fine) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-fine) 1px, transparent 1px),
+    linear-gradient(0deg, var(--grid-bold) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-bold) 1px, transparent 1px),
+    radial-gradient(circle at 15% 20%, rgba(66, 88, 106, 0.45), transparent 45%),
+    radial-gradient(circle at 85% 12%, rgba(30, 42, 54, 0.6), transparent 40%);
+  background-size: 18px 18px, 18px 18px, 120px 120px, 120px 120px, 100% 100%, 100% 100%;
+  background-position: 0 0, 0 0, 0 0, 0 0, 0 0, 0 0;
+}
+
+.app {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 16px;
+  padding: 18px 24px 24px;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  padding: 16px 20px;
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 16px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 20px 40px rgba(8, 12, 16, 0.45);
+}
+
+.brand h1 {
+  margin: 0 0 4px;
+  font-size: 28px;
+  letter-spacing: 0.04em;
+}
+
+.brand p {
+  margin: 0;
+  color: rgba(232, 237, 242, 0.75);
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+button {
+  border: 1px solid transparent;
+  border-radius: 12px;
+  padding: 10px 18px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #0a0e12;
+  background: linear-gradient(135deg, #a4e7ff, #7bb8ff);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 12px 20px rgba(70, 150, 200, 0.25);
+}
+
+button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 26px rgba(70, 150, 200, 0.35);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+button.primary {
+  background: linear-gradient(135deg, #9ff1ff, #7ab2ff);
+}
+
+.path {
+  font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
+  font-size: 0.78rem;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--panel-border);
+  background: rgba(13, 17, 20, 0.55);
+  color: rgba(232, 237, 242, 0.72);
+  max-width: 340px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.stage {
+  position: relative;
+  border-radius: 18px;
+  border: 1px solid rgba(120, 150, 170, 0.25);
+  background: rgba(9, 12, 15, 0.55);
+  overflow: hidden;
+}
+
+#link-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 3;
+}
+
+#link-layer line {
+  stroke: rgba(140, 190, 230, 0.65);
+  stroke-width: 2;
+}
+
+#link-layer marker path {
+  fill: rgba(140, 190, 230, 0.9);
+}
+
+#node-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+.node {
+  position: absolute;
+  width: 240px;
+  border-radius: 16px;
+  background: rgba(20, 26, 32, 0.92);
+  border: 1px solid var(--node-border);
+  box-shadow: 0 12px 24px rgba(6, 10, 14, 0.45);
+  backdrop-filter: blur(6px);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.node.dragging {
+  border-color: rgba(150, 210, 255, 0.9);
+  box-shadow: 0 20px 30px rgba(20, 60, 80, 0.55);
+}
+
+.node-header {
+  padding: 12px 14px 10px;
+  border-bottom: 1px solid rgba(100, 140, 165, 0.25);
+  cursor: grab;
+}
+
+.node-header h3 {
+  margin: 0;
+  font-size: 0.98rem;
+  letter-spacing: 0.02em;
+}
+
+.node-header span {
+  display: block;
+  font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
+  font-size: 0.7rem;
+  color: rgba(220, 230, 238, 0.6);
+  margin-top: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.imports {
+  padding: 10px 12px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.import {
+  background: rgba(255, 216, 107, 0.12);
+  border: 1px solid rgba(255, 216, 107, 0.4);
+  color: #ffe29b;
+  border-radius: 10px;
+  padding: 6px 10px;
+  font-size: 0.78rem;
+  font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+.import[data-target] {
+  background: rgba(121, 198, 255, 0.12);
+  border-color: rgba(121, 198, 255, 0.4);
+  color: #b6e2ff;
+}
+
+.start-screen {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  backdrop-filter: blur(4px);
+  background: rgba(8, 10, 12, 0.45);
+  z-index: 5;
+}
+
+.start-screen.hidden {
+  display: none;
+}
+
+.start-card {
+  padding: 28px 32px;
+  border-radius: 18px;
+  background: rgba(10, 14, 18, 0.85);
+  border: 1px solid rgba(140, 160, 175, 0.3);
+  text-align: center;
+  box-shadow: 0 24px 40px rgba(5, 8, 11, 0.6);
+}
+
+.start-card h2 {
+  margin: 0 0 8px;
+  font-size: 1.4rem;
+}
+
+.start-card p {
+  margin: 0 0 18px;
+  color: rgba(232, 237, 242, 0.7);
+}
+
+.hud {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 18px;
+  border-radius: 14px;
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  font-size: 0.9rem;
+}
+
+.stat {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stat span {
+  font-weight: 600;
+}
+
+.status {
+  color: rgba(232, 237, 242, 0.7);
+}
+
+@media (max-width: 900px) {
+  .topbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .controls {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .path {
+    max-width: 100%;
+  }
+
+  .hud {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

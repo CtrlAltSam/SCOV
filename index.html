@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="styles.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SCOV Blueprint - Web</title>
+    <script type="module" src="./index.js" defer></script>
+  </head>
+
+  <body>
+    <main class="app">
+      <header class="topbar">
+        <div class="brand">
+          <h1>SCOV Blueprint</h1>
+          <p>Map imports into a draggable file web.</p>
+        </div>
+        <div class="controls">
+          <button class="primary" id="pick-folder" type="button">Choose Folder</button>
+          <div class="path" id="folder-path">No folder selected</div>
+        </div>
+      </header>
+
+      <section class="stage" id="stage">
+        <div class="start-screen" id="start-screen">
+          <div class="start-card">
+            <h2>Pick a project folder</h2>
+            <p>We will visualize JS imports as a blueprint graph.</p>
+            <button class="primary" id="start-button" type="button">Select Folder</button>
+          </div>
+        </div>
+
+        <svg id="link-layer" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker
+              id="arrow"
+              markerWidth="8"
+              markerHeight="8"
+              refX="7"
+              refY="4"
+              orient="auto"
+            >
+              <path d="M0,0 L8,4 L0,8 Z" />
+            </marker>
+          </defs>
+        </svg>
+        <div id="node-layer"></div>
+      </section>
+
+      <footer class="hud">
+        <div class="stat"><span id="node-count">0</span> nodes</div>
+        <div class="stat"><span id="link-count">0</span> links</div>
+        <div class="stat status" id="status">Awaiting folder selection...</div>
+      </footer>
+    </main>
+    <input type="file" id="folder-input" webkitdirectory directory multiple style="display: none;" />
+  </body>
+</html>
