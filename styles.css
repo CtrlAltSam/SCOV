@@ -243,6 +243,13 @@ button.primary {
   color: rgba(232, 237, 242, 0.7);
 }
 
+.start-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
 .hud {
   display: flex;
   align-items: center;
@@ -267,6 +274,22 @@ button.primary {
 
 .status {
   color: rgba(232, 237, 242, 0.7);
+}
+
+.library-note {
+  color: rgba(232, 237, 242, 0.78);
+  font-size: 0.86rem;
+}
+
+.library-note a {
+  color: #9edcff;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(158, 220, 255, 0.5);
+}
+
+.library-note a:hover {
+  color: #c4ebff;
+  border-bottom-color: rgba(196, 235, 255, 0.95);
 }
 
 @media (max-width: 900px) {

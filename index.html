@@ -17,6 +17,7 @@
         </div>
         <div class="controls">
           <button class="primary" id="pick-folder" type="button">Choose Folder</button>
+          <button id="load-demo" type="button">Load Demo Folder</button>
           <div class="path" id="folder-path">No folder selected</div>
         </div>
       </header>
@@ -26,7 +27,10 @@
           <div class="start-card">
             <h2>Pick a project folder</h2>
             <p>We will visualize JS imports as a blueprint graph.</p>
-            <button class="primary" id="start-button" type="button">Select Folder</button>
+            <div class="start-actions">
+              <button class="primary" id="start-button" type="button">Select Folder</button>
+              <button id="start-demo" type="button">Load Demo Folder</button>
+            </div>
           </div>
         </div>
 
@@ -51,6 +55,9 @@
         <div class="stat"><span id="node-count">0</span> nodes</div>
         <div class="stat"><span id="link-count">0</span> links</div>
         <div class="stat status" id="status">Awaiting folder selection...</div>
+        <div class="library-note">
+          Library: <a href="https://github.com/CtrlAltSam/SCOV-Lib" target="_blank" rel="noopener noreferrer">SCOV-Lib on GitHub</a>
+        </div>
       </footer>
     </main>
     <input type="file" id="folder-input" webkitdirectory directory multiple style="display: none;" />
